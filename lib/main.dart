@@ -1,9 +1,11 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroll_t1/screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(DevicePreview(enabled: false, builder: (context) => MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +17,10 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        useInheritedMediaQuery: true,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         title: 'Flutter Demo',
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

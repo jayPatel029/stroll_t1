@@ -45,10 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     "“Mine is definitely the peace in the morning.”",
                     style: TextStyle(
                         color: AppColors.headingText,
-                        fontStyle: FontStyle.italic),
+                        fontStyle: FontStyle.italic,
+                        fontSize: 13),
                   ),
 
-                  // gridview here
                   SizedBox(
                     height: 140.h,
                     width: double.infinity,
@@ -56,14 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 0.w,
+                        crossAxisSpacing: 5.w,
                         mainAxisSpacing: 10.h,
                         childAspectRatio: (166 / 57),
                       ),
                       itemCount: _options.length,
                       itemBuilder: (context, i) {
                         return Padding(
-                          padding: const EdgeInsets.only(right: 8, left: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -75,50 +75,55 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 166.w,
                               decoration: BoxDecoration(
                                 color: AppColors.cardBackground,
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(16.r),
                                 border: Border.all(
                                   color: _isSelected == i
                                       ? AppColors.primaryViolet
                                       : Colors.transparent,
-                                  width: 2,
+                                  width: 2.w, // Responsive border width
                                 ),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0.w),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      height: 28.h,
-                                      width: 28.w,
+                                      height: 25.h,
+                                      width: 25.h,
                                       decoration: BoxDecoration(
+                                        color: _isSelected == i
+                                            ? AppColors.primaryViolet
+                                            : Colors.transparent,
+                                        border: Border.all(
                                           color: _isSelected == i
                                               ? AppColors.primaryViolet
-                                              : Colors.transparent,
-                                          border: Border.all(
-                                            color: _isSelected == i
-                                                ? AppColors.primaryViolet
-                                                : Colors.white,
-                                            width: 2,
-                                          ),
-                                          shape: BoxShape.circle),
+                                              : Colors.white,
+                                          width: 1.5.w,
+                                        ),
+                                        shape: BoxShape.circle,
+                                      ),
                                       child: Center(
                                         child: Text(
                                           _options[i],
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13.sp,
+                                          ),
                                         ),
                                       ),
                                     ),
                                     SizedBox(
                                       width: 9.w,
                                     ),
+                                    // Title Text
                                     Flexible(
                                       child: Text(
                                         _titles[i],
-                                        style: const TextStyle(
-                                            fontSize: 14, color: Colors.white),
+                                        style: TextStyle(
+                                          fontSize: 13.sp,
+                                          color: Colors.white,
+                                        ),
                                         overflow: TextOverflow.visible,
                                         softWrap: true,
                                       ),
@@ -149,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.all(8.w),
         height: 45.h,
         decoration: const BoxDecoration(
-          color: Color(0xFF1D2026), //
+          color: Color(0xFF1D2026),
           borderRadius: BorderRadius.only(),
         ),
         child: Row(
@@ -162,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             Stack(
-              clipBehavior: Clip.none, //
+              clipBehavior: Clip.none,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -205,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 Positioned(
-                  top: -0, //
+                  top: -0,
                   right: -8,
                   child: Container(
                     height: 12.h,
@@ -241,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget headingSec() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+      padding: EdgeInsets.fromLTRB(20.w, 0, 0, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -253,24 +258,25 @@ class _HomeScreenState extends State<HomeScreen> {
               color: AppColors.headingText,
               shadows: [
                 Shadow(
-                  blurRadius: 5.0,
+                  blurRadius: 5.r,
                   color: Colors.black.withOpacity(0.5),
-                  offset: const Offset(0, 2),
+                  offset: Offset(0, 2.h),
                 )
               ],
             ),
           ),
+          SizedBox(width: 5.w),
           Icon(
             Icons.keyboard_arrow_down_sharp,
-            size: 35.sp,
+            size: 35.sp, //
             color: AppColors.headingText,
             shadows: [
               Shadow(
-                blurRadius: 5.0,
+                blurRadius: 5.r,
                 color: Colors.black.withOpacity(0.5),
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2.h),
               )
-            ], //
+            ],
           ),
         ],
       ),
@@ -285,8 +291,31 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // Clock Icon
         Image.asset(
           "assets/clock_home.png",
+          height: 14.h,
+          width: 14.h,
+        ),
+        SizedBox(
+          width: 2.w, //
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            currTime,
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 15.w,
+        ),
+        // Profile Icon
+        Image.asset(
+          "assets/prof_home.png",
           height: 14.h,
           width: 14.h,
         ),
@@ -296,28 +325,9 @@ class _HomeScreenState extends State<HomeScreen> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Text(
-            currTime,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 15.w,
-        ),
-        Image.asset(
-          "assets/prof_home.png",
-          height: 14.h,
-          width: 14.h,
-        ),
-        SizedBox(
-          width: 2.w,
-        ),
-        const Align(
-          alignment: Alignment.bottomCenter,
-          child: Text(
             "123",
             style: TextStyle(
+              fontSize: 12.sp,
               color: Colors.white,
             ),
             textAlign: TextAlign.end,
@@ -334,53 +344,57 @@ class _HomeScreenState extends State<HomeScreen> {
         Stack(
           children: [
             Container(
-              margin: const EdgeInsets.fromLTRB(40, 15, 0, 0),
+              margin: EdgeInsets.fromLTRB(40.w, 7.h, 0, 0),
               height: 20.h,
-              width: 140.w,
+              width: 147.w,
               decoration: BoxDecoration(
                 color: AppColors.semiBlack,
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(15.r),
               ),
               child: Row(
                 children: [
                   SizedBox(
-                    width: 45.w,
+                    width: 46.w,
                   ),
-                  const Text(
+                  Text(
                     "name here, 23",
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13.sp,
+                    ),
                   ),
                 ],
               ),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-              height: 60.h,
-              width: 60.w,
-              decoration: const BoxDecoration(
+              margin: EdgeInsets.fromLTRB(20.w, 0, 0, 0),
+              height: 55.h, //
+              width: 55.h, //
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColors.semiBlack,
               ),
-              child: const Center(
+              child: Center(
                 child: Icon(
                   Icons.person_pin,
                   color: AppColors.headingText,
-                  size: 60,
+                  size: 50.sp,
                 ),
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 7.h,
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(90, 40, 20, 0),
+            Padding(
+              padding: EdgeInsets.fromLTRB(90.w, 40.h, 20.w, 0),
               child: Text(
                 "What is your favorite time of the day?",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
               ),
             ),
           ],
